@@ -3,7 +3,7 @@ import { api, setAccessToken } from './api'
 
 export type User = { id: string; email: string; fullName: string; phone?: string; status: string; roles: string[] }
 type Credentials = { email: string; password: string }
-type AuthContextValue = { user: User | null; login: (values: Credentials) => Promise<void>; register: (values: Credentials & { fullName: string; phone?: string }) => Promise<void>; logout: () => void }
+type AuthContextValue = { user: User | null; login: (values: Credentials) => Promise<void>; register: (values: Credentials & { fullName: string; phone?: string }) => Promise<void>; updateProfile: (values: { fullName: string; phone?: string }) => Promise<void>; logout: () => void }
 const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null)
@@ -12,7 +12,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setAccessToken(response.data.accessToken)
     setUser(response.data.user)
   }
-  const value = useMemo(() => ({ user, login: (v: Credentials) => authenticate('/auth/login', v), register: (v: Credentials & { fullName: string; phone?: string }) => authenticate('/auth/register', v), logout: () => { setAccessToken(null); setUser(null) } }), [user])
+  const value = useMemo(() => ({ user, login: (v: Credentials) => authenticate('/auth/login', v), register: (v: Credentials & { fullName: string; phone?: string }) => authenticate('/auth/register', v), updateProfile: async (values: { fullName: string; phone?: string }) => { const { data } = await api.put('/auth/me', values); setUser(data) }, logout: () => { setAccessToken(null); setUser(null) } }), [user])
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 export function useAuth() { const value = useContext(AuthContext); if (!value) throw new Error('useAuth must be used inside AuthProvider'); return value }
