@@ -14,7 +14,7 @@ flowchart LR
   API -. future phases .-> Mail[Email provider]
 ```
 
-The browser uses one authentication flow and routes users according to server-issued roles. The API owns authorization and is the source of truth. Phase 1 implements identity, role assignment, authentication, basic account administration, audit events, and shared dashboard shell. Business workflows, refresh-token rotation, email verification, password recovery, lockout/rate-limit persistence, and deployment hardening are subsequent work; optional integrations are disabled until configured. JWT signing material is supplied through environment variables. Passwords are stored using BCrypt.
+The browser uses one authentication flow and routes users according to server-issued roles. The API owns authorization and is the source of truth. Phase 1 implements identity, fixed role records, shared authentication, profile updates, audit events, and the dashboard shell. Refresh-token rotation, email verification, password recovery, persistent lockout/rate limits, and operational workflows are subsequent work. Passwords are stored using BCrypt. Development has a fallback signing secret; production requires `JWT_SECRET` and a production secrets manager.
 
 ### Role-permission matrix
 
@@ -68,13 +68,14 @@ Java 21, Spring Boot 3.5.x, Maven, Spring Web, Security, Data JPA, Validation, M
 
 ## Local setup (PowerShell)
 
-Requirements: JDK 21, Node.js 20+, Docker Desktop with Compose. From the repository root:
+Requirements: Java 21+, Maven 3.9+, Node.js 20+, Docker Desktop with Compose. From the repository root:
 
 ```powershell
 Copy-Item .env.example .env
 docker compose up -d mysql
 Set-Location backend
-./mvnw spring-boot:run
+$env:SPRING_PROFILES_ACTIVE = 'dev'
+mvn spring-boot:run
 ```
 
 In a second terminal:
@@ -87,7 +88,7 @@ npm run dev
 
 Open `http://localhost:5173`. Swagger UI is at `http://localhost:8080/swagger-ui.html`. The backend reads environment variables from the process environment; export values from `.env` in your shell or use a local environment loader. Never use the development JWT secret in a deployed environment. Set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before first startup to create a local system administrator; there are no committed demo credentials.
 
-For the backend wrapper if it has not been generated locally, run `mvn -N wrapper:wrapper` with Maven installed, then use `./mvnw`. Alternatively run `mvn spring-boot:run` from `backend`.
+Run backend checks from `backend` with `mvn test`. Run the frontend production check from `frontend` with `npm run build`. Docker Compose reads `.env`; Spring Boot reads process environment variables and does not load `.env` automatically. Local Spring defaults match the compose database defaults. In production, activate the `prod` profile and set all required secrets and service URLs in the deployment environment.
 
 ## Phase 1 scope and status
 
