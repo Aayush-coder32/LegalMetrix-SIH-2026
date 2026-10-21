@@ -25,5 +25,6 @@ public class JwtService {
         return Jwts.builder().subject(user.getId()).claim("email", user.getEmail()).claim("roles", roles)
             .issuedAt(Date.from(now)).expiration(Date.from(now.plusSeconds(ttlMinutes * 60))).signWith(key).compact();
     }
+    public long ttlSeconds() { return ttlMinutes * 60; }
     public String subject(String token) { return Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload().getSubject(); }
 }

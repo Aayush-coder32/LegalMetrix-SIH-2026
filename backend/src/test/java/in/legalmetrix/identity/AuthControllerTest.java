@@ -30,11 +30,10 @@ class AuthControllerTest {
     @BeforeEach void setUp() {
         controller = new AuthController(users, roles, passwords, jwt, audit);
         ownerRole = mock(Role.class);
-        when(ownerRole.getCode()).thenReturn("BUSINESS_OWNER");
-        when(ownerRole.getDisplayName()).thenReturn("Business / Instrument Owner");
     }
 
     @Test void registrationCreatesBusinessOwnerWithEncodedPassword() {
+        when(ownerRole.getCode()).thenReturn("BUSINESS_OWNER");
         when(users.existsByEmailIgnoreCase("owner@example.in")).thenReturn(false);
         when(roles.findByCode("BUSINESS_OWNER")).thenReturn(Optional.of(ownerRole));
         when(passwords.encode("A-Strong-Password-9")).thenReturn("bcrypt-hash");

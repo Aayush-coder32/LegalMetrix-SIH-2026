@@ -22,7 +22,7 @@ public class AuthController {
     public record UserView(String id, String email, String fullName, String phone, String status, List<String> roles) {}
     public record AuthResponse(String accessToken, String tokenType, long expiresInSeconds, UserView user) {}
     private UserView view(UserAccount u) { return new UserView(u.getId(),u.getEmail(),u.getFullName(),u.getPhone(),u.getStatus(),u.getRoles().stream().map(Role::getCode).sorted().toList()); }
-    private AuthResponse response(UserAccount u) { return new AuthResponse(jwt.issue(u),"Bearer",900,view(u)); }
+    private AuthResponse response(UserAccount u) { return new AuthResponse(jwt.issue(u),"Bearer",jwt.ttlSeconds(),view(u)); }
     @PostMapping("/register") @Transactional
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest body, HttpServletRequest request) {
         String email=body.email().trim().toLowerCase(Locale.ROOT);
