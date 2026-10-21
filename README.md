@@ -59,7 +59,7 @@ backend/                 Spring Boot API, Maven, Flyway migrations
   src/test/java/...      focused API/security tests
 frontend/                Vite, React, TypeScript, Tailwind
   src/                    routes, auth, layouts, shared UI
-docs/                     architecture, permissions, API notes
+README.md                 architecture, permissions, relationships, setup
 ```
 
 ## Stack and dependency choices
@@ -92,7 +92,7 @@ Run backend checks from `backend` with `mvn test`. Run the frontend production c
 
 ## Phase 1 scope and status
 
-This initial increment provides the architecture baseline, schema, shared authentication, role-aware shell, and account/profile basics. It is intentionally the first phase of the larger system; later phases add instrument registry, applications, inspections, certificates, grievances, reporting, and hardened deployment integrations. Do not put personal or production data into this prototype.
+This initial increment provides the architecture baseline, schema, shared authentication, role-aware shell, and account/profile basics. Access tokens stay in browser memory; reloading requires signing in again until refresh-token rotation is implemented. Client logout clears the browser token, which remains valid at the server only until its short expiry. It is intentionally the first phase of the larger system; later phases add instrument registry, applications, inspections, certificates, grievances, reporting, and hardened deployment integrations. Do not put personal or production data into this prototype.
 
 ## Security and operations
 
