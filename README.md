@@ -74,6 +74,11 @@ Requirements: Java 21+, Maven 3.9+, Node.js 20+, Docker Desktop with Compose. Fr
 Copy-Item .env.example .env
 docker compose up -d mysql
 Set-Location backend
+Get-Content ..\.env | ForEach-Object {
+  if ($_ -match '^\s*([^#=]+)=(.*)$') {
+    Set-Item -Path ("Env:" + $matches[1].Trim()) -Value $matches[2]
+  }
+}
 $env:SPRING_PROFILES_ACTIVE = 'dev'
 mvn spring-boot:run
 ```
@@ -86,9 +91,9 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`. Swagger UI is at `http://localhost:8080/swagger-ui.html`. The backend reads environment variables from the process environment; export values from `.env` in your shell or use a local environment loader. Never use the development JWT secret in a deployed environment. Set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before first startup to create a local system administrator; there are no committed demo credentials.
+Open `http://localhost:5173`. Swagger UI is at `http://localhost:8080/swagger-ui.html`. The PowerShell block above loads `.env` values into the backend process without printing them. Never use the development JWT secret in a deployed environment. Set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before first startup to create a local system administrator; there are no committed demo credentials.
 
-Run backend checks from `backend` with `mvn test`. Run the frontend production check from `frontend` with `npm run build`. Docker Compose reads `.env`; Spring Boot reads process environment variables and does not load `.env` automatically. Local Spring defaults match the compose database defaults. In production, activate the `prod` profile and set all required secrets and service URLs in the deployment environment.
+Run backend checks from `backend` with `mvn test`. Run the frontend production check from `frontend` with `npm run build`. Docker Compose reads `.env`; Spring Boot does not load `.env` automatically. In production, activate the `prod` profile and set all required secrets and service URLs in the deployment environment.
 
 ## Phase 1 scope and status
 
