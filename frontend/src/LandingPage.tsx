@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight, BadgeCheck, Bell, CalendarDays, Check, ClipboardList,
-  Clock3, Globe, Play, QrCode, Scale, ShieldCheck, X,
+  Clock3, Globe, Play, QrCode, Scale, ShieldCheck, X, FileCheck2, Activity, Mail,
 } from 'lucide-react'
 
 const steps = [
@@ -50,14 +50,30 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="lm-process" id="services">
-        <div id="process" className="lm-process-anchor"/>
+      <section className="lm-about" id="about">
+        <div className="lm-about-copy"><span className="lm-kicker">ABOUT LEGALMETRIX</span><h2>Clearer metrology services, designed around trust.</h2><p>LegalMetrix is an SIH 2026 prototype for bringing instrument registration, inspection requests and application updates into one simple digital workspace.</p><div className="lm-about-points"><span><ShieldCheck size={17}/> Secure, role-based access</span><span><Activity size={17}/> Transparent request tracking</span><span><BadgeCheck size={17}/> Officer-led verification</span></div></div>
+        <div className="lm-about-note"><span className="lm-about-note-icon"><Scale size={23}/></span><b>Built for a fair measurement ecosystem</b><p>Business users can submit details and evidence online. Authorized officers review requests and record decisions.</p><small>Prototype demonstration · Not an official government service</small></div>
+      </section>
+
+      <section className="lm-services" id="services">
+        <div className="lm-section-intro"><span className="lm-kicker">PORTAL SERVICES</span><h2>One workspace for every step</h2><p>Keep instrument applications and verification activity organized in one place.</p></div>
+        <div className="lm-service-grid">
+          <article className="lm-service-card"><span className="lm-service-icon blue"><Scale size={22}/></span><h3>Instrument registration</h3><p>Submit instrument details and business location to start a verification application.</p><Link to="/instruments/new">Register an instrument <ArrowRight size={14}/></Link></article>
+          <article className="lm-service-card"><span className="lm-service-icon green"><CalendarDays size={22}/></span><h3>Inspection requests</h3><p>Choose a preferred date, share the inspection location and attach an instrument photo.</p><Link to="/inspections/book">Request an inspection <ArrowRight size={14}/></Link></article>
+          <article className="lm-service-card"><span className="lm-service-icon violet"><ClipboardList size={22}/></span><h3>Application tracking</h3><p>Review submitted applications and follow their recorded status from your workspace.</p><Link to="/login">Open your workspace <ArrowRight size={14}/></Link></article>
+          <article className="lm-service-card"><span className="lm-service-icon orange"><FileCheck2 size={22}/></span><h3>Certificates &amp; QR checks</h3><p>Certificate records and public verification are planned for a later prototype phase.</p><Link to="/verify">Explore certificate checks <ArrowRight size={14}/></Link></article>
+        </div>
+      </section>
+
+      <section className="lm-process" id="process">
         <div className="lm-section-intro"><span className="lm-kicker">SIMPLE · 4-STEP PROCESS</span><h2>How It Works</h2><p>From registration to verification, a clear online journey for instrument owners.</p></div>
         <div className="lm-step-grid">{steps.map(({ number, title, text, icon: Icon, tone }, index) => <article className={`lm-step-card ${tone}`} key={number}><span className="lm-step-number">{number}</span><span className="lm-step-icon"><Icon size={31}/></span><h3>{title}</h3><p>{text}</p>{index < steps.length - 1 && <ArrowRight className="lm-step-arrow" size={19}/>}</article>)}</div>
       </section>
 
+      <section className="lm-contact" id="contact"><div><span className="lm-kicker">CONTACT &amp; SUPPORT</span><h2>Need help with the prototype?</h2><p>For account or demonstration support, contact the LegalMetrix team. Do not send confidential business or instrument records by email.</p></div><a className="lm-contact-link" href="mailto:support@legalmetrix.in"><Mail size={18}/> support@legalmetrix.in <ArrowRight size={15}/></a></section>
+
     </main>
-    <footer className="lm-footer" id="about"><div className="lm-footer-left"><ShieldCheck size={27}/><span>LegalMetrix SIH prototype</span><i/><span>For demonstration only</span><i/><span>Not an official government service</span></div><a href="#contact" id="contact">Prototype information <ArrowRight size={15}/></a></footer>
+    <footer className="lm-footer"><div className="lm-footer-left"><ShieldCheck size={27}/><span>LegalMetrix SIH prototype</span><i/><span>For demonstration only</span><i/><span>Not an official government service</span></div><a href="#home">Back to top <ArrowRight size={15}/></a></footer>
   </div>
 }
 
