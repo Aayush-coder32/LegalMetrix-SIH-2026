@@ -44,20 +44,20 @@ function Dashboard() {
  const title=roleNames[user.roles[0]] ?? 'Portal User'
  const firstName=user.fullName.trim().split(/\s+/)[0]
  const actionCards=[
-  {icon:<Plus/>,title:'Register Instrument',text:'Add a new instrument for verification',tone:'green',available:false},
-  {icon:<CalendarDays/>,title:'Book Inspection',text:'Schedule an inspection with an officer',tone:'blue',available:false},
-  {icon:<FileCheck2/>,title:'View Certificates',text:'Access and verify your certificates',tone:'violet',available:false},
-  {icon:<Activity/>,title:'Track Application',text:'Check your application progress',tone:'orange',available:false},
+  {icon:<Plus/>,title:'Register Instrument',text:'Add an instrument for verification',tone:'green',to:'/instruments/new'},
+  {icon:<CalendarDays/>,title:'Book Inspection',text:'Explore inspection booking',tone:'blue',to:'/inspections/book'},
+  {icon:<FileCheck2/>,title:'View Certificates',text:'Browse certificate records',tone:'violet',to:'/certificates'},
+  {icon:<Activity/>,title:'Track Application',text:'Review application workspace',tone:'orange',to:'/applications'},
  ]
  return <div className="app-shell dashboard-redesign">
   <aside className={`sidebar ${menu?'sidebar-open':''}`}>
    <Link className="brand side-brand" to="/"><span className="brand-mark"><Scale size={20}/></span><span>Legal<span className="brand-accent">Metrix</span><small>Legal Metrology Portal</small></span></Link>
    <div className="side-label">WORKSPACE</div>
    <Link className="side-link active" to="/dashboard"><Home size={18}/> Dashboard</Link>
-   <button className="side-link" disabled title="Application workflow is planned for a later phase"><ClipboardCheck size={18}/> My Applications <span className="side-coming">Soon</span></button>
-   <button className="side-link" disabled title="Instrument registration is planned for a later phase"><Plus size={18}/> Register Instrument <span className="side-coming">Soon</span></button>
-   <button className="side-link" disabled title="Inspection scheduling is planned for a later phase"><CalendarDays size={18}/> Book Inspection <span className="side-coming">Soon</span></button>
-   <button className="side-link" disabled title="Certificate management is planned for a later phase"><FileCheck2 size={18}/> Certificates <span className="side-coming">Soon</span></button>
+   <Link className="side-link" to="/applications"><ClipboardCheck size={18}/> My Applications</Link>
+   <Link className="side-link" to="/instruments/new"><Plus size={18}/> Register Instrument</Link>
+   <Link className="side-link" to="/inspections/book"><CalendarDays size={18}/> Book Inspection</Link>
+   <Link className="side-link" to="/certificates"><FileCheck2 size={18}/> Certificates</Link>
    <Link className="side-link" to="/settings/profile"><UserRound size={18}/> Profile</Link>
    <Link className="side-link" to="/verify"><QrCode size={18}/> Verify Certificate</Link>
    <div className="side-spacer"/><div className="sidebar-motto"><Scale size={52}/><span>Accurate Measurement<br/>Builds a Fairer Tomorrow</span></div>
@@ -70,7 +70,7 @@ function Dashboard() {
     <div className="prototype-banner"><div className="banner-icon"><Activity size={19}/></div><div><b>Welcome to the LegalMetrix prototype</b><p>Instrument registration, inspections and certificate workflows will appear here as they become available.</p></div></div>
     <div className="dashboard-columns"><section className="dashboard-primary">
      <div className="dashboard-section-heading"><div><h2>Quick Actions</h2><p>Start a task in your workspace</p></div></div>
-     <div className="dashboard-action-grid">{actionCards.map(card=><button className={`dashboard-action-card ${card.tone}`} key={card.title} disabled={!card.available} title="This workflow is planned for a later phase"><span className="dashboard-action-icon">{card.icon}</span><b>{card.title}</b><small>{card.text}</small><span className="dashboard-action-link">{card.available?'Open':'Coming soon'} <ArrowRight size={15}/></span></button>)}</div>
+     <div className="dashboard-action-grid">{actionCards.map(card=><Link className={`dashboard-action-card ${card.tone}`} key={card.title} to={card.to}><span className="dashboard-action-icon">{card.icon}</span><b>{card.title}</b><small>{card.text}</small><span className="dashboard-action-link">Open workspace <ArrowRight size={15}/></span></Link>)}</div>
      <section className="dashboard-panel account-overview"><div className="dashboard-section-heading"><div><h2>Account Overview</h2><p>Your current account details</p></div><Link to="/settings/profile">Manage profile <ArrowRight size={14}/></Link></div><div className="dashboard-account-grid"><div><small>Full name</small><b>{user.fullName}</b></div><div><small>Email address</small><b>{user.email}</b></div><div><small>Access role</small><b>{title}</b></div><div><small>Account status</small><span className="dashboard-active-status"><i/> Active</span></div></div></section>
     </section><aside className="dashboard-rail">
      <div className="dashboard-panel dashboard-status-card ready"><span className="dashboard-status-icon"><CircleCheck/></span><div><b>Your account is ready</b><p>Profile access is active. You can update your account information at any time.</p></div><Link to="/settings/profile" aria-label="Manage account profile"><ArrowRight size={17}/></Link></div>
