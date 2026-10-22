@@ -99,6 +99,10 @@ Run backend checks from `backend` with `mvn test`. Run the frontend production c
 
 This initial increment provides the architecture baseline, schema, shared authentication, role-aware shell, and account/profile basics. Access tokens stay in browser memory; reloading requires signing in again until refresh-token rotation is implemented. Client logout clears the browser token, which remains valid at the server only until its short expiry. It is intentionally the first phase of the larger system; later phases add instrument registry, applications, inspections, certificates, grievances, reporting, and hardened deployment integrations. Do not put personal or production data into this prototype.
 
+## Workflow data currently available
+
+Instrument registration creates an account-owned instrument record and an initial verification application. Inspection requests are stored against an application and remain `REQUESTED` until an authorized officer reviews them. Application and inspection lists are scoped to the signed-in account. Certificate issuance and verification decisions are not implemented; this prototype does not issue statutory approvals or certificates.
+
 ## Security and operations
 
 Use TLS, a production-grade secret manager, restricted CORS, private object storage, backups with restore drills, monitoring, dependency scanning, and configured rate limiting before deployment. LegalMetrix does not claim formal authorization or compliance certification. External email/SMS, malware scanning, object storage, and payment services require separately configured providers.

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,7 +68,7 @@ public class WorkspaceController {
             i.getId(),i.getInstrumentType(),i.getSerialNumber(),i.getBusinessName());
     }
 
-    @PostMapping("/instruments") @Transactional
+    @PostMapping("/instruments") @Transactional @PreAuthorize("hasRole('BUSINESS_OWNER')")
     public ResponseEntity<InstrumentCreated> registerInstrument(@Valid @RequestBody InstrumentRequest body,
                                                                   Authentication auth, HttpServletRequest request) {
         String owner=auth.getName();
@@ -84,17 +85,17 @@ public class WorkspaceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new InstrumentCreated(instrumentView(instrument),applicationView(application)));
     }
 
-    @GetMapping("/instruments")
+    @GetMapping("/instruments") @PreAuthorize("hasRole('BUSINESS_OWNER')")
     public List<InstrumentView> myInstruments(Authentication auth) {
         return instruments.findByOwnerUserIdOrderByCreatedAtDesc(auth.getName()).stream().map(this::instrumentView).toList();
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/applications") @PreAuthorize("hasRole('BUSINESS_OWNER')")
     public List<ApplicationView> myApplications(Authentication auth) {
         return applications.findByOwnerUserIdOrderBySubmittedAtDesc(auth.getName()).stream().map(this::applicationView).toList();
     }
 
-    @PostMapping("/inspections") @Transactional
+    @PostMapping("/inspections") @Transactional @PreAuthorize("hasRole('BUSINESS_OWNER')")
     public ResponseEntity<InspectionView> requestInspection(@Valid @RequestBody InspectionRequestBody body,
                                                              Authentication auth, HttpServletRequest request) {
         String owner=auth.getName();
@@ -107,7 +108,7 @@ public class WorkspaceController {
         return ResponseEntity.status(HttpStatus.CREATED).body(inspectionView(saved,application));
     }
 
-    @GetMapping("/inspections")
+    @GetMapping("/inspections") @PreAuthorize("hasRole('BUSINESS_OWNER')")
     public List<InspectionView> myInspections(Authentication auth) {
         return inspections.findByOwnerUserIdOrderByRequestedDateAsc(auth.getName()).stream().map(i -> {
             ApplicationRecord app=applications.findByIdAndOwnerUserId(i.getApplicationId(),auth.getName()).orElseThrow();
