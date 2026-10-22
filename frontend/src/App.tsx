@@ -26,7 +26,6 @@ function AuthPage({ mode }: { mode: 'login' | 'register' }) {
  return <main className={`auth-screen ${mode==='register'?'register-mode':''}`}>
   <section className="auth-story" aria-label="Legal Metrology Portal introduction">
    <Link className="auth-story-brand" to="/"><span className="auth-brand-seal"><Scale size={25}/></span><span><strong>Legal Metrology Portal</strong><small>Verify <i/> Protect <i/> Build Trust</small></span></Link>
-   <div className="auth-story-copy"><span className="section-kicker">LEGALMETRIX PORTAL</span><h1>Ensure Accurate Weights,<br/>Fair Trade, <em>A Safer Tomorrow</em></h1><p>A digital platform for online verification, inspection and management of weighing and measuring instruments under Legal Metrology.</p></div>
    <img className="auth-story-image" src="/src/public/login%20in%20page.png" alt="Weighing scale, sample certificate and phone illustration for Legal Metrology"/>
    <div className="auth-benefits"><div><span><ShieldCheck/></span><b>Secure &amp; Reliable</b><small>Protected account access</small></div><div><span><BadgeCheck/></span><b>Transparent Process</b><small>Track every step online</small></div><div><span><QrCode/></span><b>Digital Certificates</b><small>QR verification ready</small></div><div><span><Clock3/></span><b>Faster Service</b><small>Less paperwork</small></div></div>
   </section>
