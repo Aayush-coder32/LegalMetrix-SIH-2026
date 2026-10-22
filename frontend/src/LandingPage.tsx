@@ -45,12 +45,8 @@ export default function LandingPage() {
             <Highlight icon={<QrCode/>} title="Digital" detail="Certificate-ready design"/>
           </div>
         </div>
-        <div className="lm-hero-visual" aria-label="Illustration of a weighing scale with a certificate preview and phone">
-          <div className="lm-visual-wash"/><div className="lm-visual-orbit"/>
-          <div className="lm-certificate-card"><div className="lm-certificate-top"><span className="lm-mini-seal"><Scale size={17}/></span><span><b>Certificate Preview</b><small>Illustrative interface only</small></span></div><span className="lm-preview-tag"><i/> PREVIEW</span><div className="lm-cert-rule"/><div className="lm-cert-line"><span>Instrument type</span><b>Example instrument</b></div><div className="lm-cert-line"><span>Reference</span><b>Sample data</b></div><div className="lm-cert-line"><span>Certificate status</span><b className="lm-cert-status"><Check size={11}/> Not a real record</b></div><div className="lm-cert-foot"><QrCode size={38}/><span>QR visual<br/>illustration only</span></div></div>
-          <div className="lm-scale-art"><div className="lm-scale-pan"/><div className="lm-scale-neck"/><div className="lm-scale-body"><div className="lm-scale-screen"><strong>0.000</strong><small>kg</small></div><span className="lm-scale-button"/><span className="lm-scale-button"/><span className="lm-scale-button"/></div><div className="lm-scale-foot left"/><div className="lm-scale-foot right"/></div>
-          <div className="lm-phone"><div className="lm-phone-notch"/><div className="lm-phone-screen"><span className="lm-scan-label">QR PREVIEW</span><QrCode size={75} strokeWidth={1.7}/><span className="lm-phone-check"><Check size={15}/></span><b>Preview only</b><small>Not connected to records</small></div></div>
-          <div className="lm-art-caption"><ShieldCheck size={15}/> Prototype visual · no official certificate shown</div>
+        <div className="lm-hero-visual">
+          <img className="lm-hero-art-image" src="/src/public/3d3babcb-92cb-498f-9908-98403323057b.png" alt="Illustration of a weighing scale with a certificate preview and phone" />
         </div>
       </section>
 
