@@ -54,14 +54,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="lm-process" id="process">
+      <section className="lm-process" id="services">
+        <div id="process" className="lm-process-anchor"/>
         <div className="lm-section-intro"><span className="lm-kicker">SIMPLE · 4-STEP PROCESS</span><h2>How It Works</h2><p>From registration to verification, a clear online journey for instrument owners.</p></div>
         <div className="lm-step-grid">{steps.map(({ number, title, text, icon: Icon, tone }, index) => <article className={`lm-step-card ${tone}`} key={number}><span className="lm-step-number">{number}</span><span className="lm-step-icon"><Icon size={31}/></span><h3>{title}</h3><p>{text}</p>{index < steps.length - 1 && <ArrowRight className="lm-step-arrow" size={19}/>}</article>)}</div>
       </section>
 
-      <section className="lm-platform-note" id="about"><div className="lm-note-icon"><ShieldCheck size={22}/></div><div><b>Designed for transparent compliance services</b><p>LegalMetrix is an SIH prototype. The workflows shown are illustrative and require formal authorization before real-world use.</p></div><Link to="/register">Explore the prototype <ArrowRight size={16}/></Link></section>
     </main>
-    <footer className="lm-footer" id="contact"><div className="lm-footer-left"><ShieldCheck size={28}/><span>Prototype concept</span><i/><span>For businesses and officers</span><i/><span>Designed with consumer trust in mind</span></div><a href="mailto:help@legalmetrix.example">Contact the prototype team</a></footer>
+    <footer className="lm-footer" id="about"><div className="lm-footer-left"><ShieldCheck size={27}/><span>LegalMetrix SIH prototype</span><i/><span>For demonstration only</span><i/><span>Not an official government service</span></div><a href="#contact" id="contact">Prototype information <ArrowRight size={15}/></a></footer>
   </div>
 }
 
