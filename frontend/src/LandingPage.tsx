@@ -46,7 +46,7 @@ export default function LandingPage() {
           </div>
         </div>
         <div className="lm-hero-visual">
-          <img className="lm-hero-art-image" src="/src/public/3d3babcb-92cb-498f-9908-98403323057b.png" alt="Illustration of a weighing scale with a certificate preview and phone" />
+          <img className="lm-hero-art-image" src="/images/metrology-hero.png" alt="Illustration of a weighing scale with a certificate preview and phone" />
         </div>
       </section>
 

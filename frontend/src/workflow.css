@@ -1,0 +1,54 @@
+.dashboard-action-card{min-height:148px;padding:13px 14px 35px;isolation:isolate;overflow:hidden;justify-content:flex-start}
+.dashboard-action-card>*:not(.dashboard-action-art){position:relative;z-index:1;max-width:57%}
+.dashboard-action-card:after{content:"";position:absolute;inset:0 0 0 auto;width:58%;z-index:0;background:linear-gradient(90deg,#fff 0%,#ffffffd9 20%,#fff0 78%)}
+.dashboard-action-art{position:absolute;z-index:-1;right:0;top:0;width:55%;height:100%;object-fit:cover;opacity:.92;mask-image:linear-gradient(90deg,transparent 0%,#000 34%);}
+.dashboard-action-card .dashboard-action-icon{margin:0}
+.dashboard-action-card>b{margin-top:8px;font-size:11px}
+.dashboard-action-card>small{font-size:8px;line-height:1.45}
+.dashboard-action-link{bottom:11px;right:12px;font-size:8px}
+
+.workspace-form-section-title{display:flex;align-items:center;gap:9px;margin:15px 0 11px;padding-bottom:8px;border-bottom:1px solid #edf2f7}
+.workspace-form-section-title>span{width:24px;height:24px;display:grid;place-items:center;flex:none;border-radius:50%;background:#e9f4ff;color:#2878b4;font-size:8px;font-weight:800}
+.workspace-form-section-title b,.workspace-form-section-title small{display:block}
+.workspace-form-section-title b{color:#385977;font:700 10px Manrope,sans-serif}
+.workspace-form-section-title small{margin-top:3px;color:#8799ab;font-size:8px}
+.workspace-submit-form{display:grid;gap:0}
+.workspace-submit-form .preview-form-grid{gap:11px}
+.workspace-submit-form .preview-form-grid input,.workspace-submit-form .preview-form-grid select,.workspace-submit-form .preview-form-grid textarea{width:100%;height:39px;padding:0 10px;border:1px solid #d8e4ef;border-radius:7px;outline:none;background:#fff;color:#294a69;font:400 10px 'DM Sans',sans-serif;transition:border-color .15s,box-shadow .15s}
+.workspace-submit-form .preview-form-grid textarea{height:auto;min-height:80px;padding:10px;resize:vertical}
+.workspace-submit-form .preview-form-grid input:focus,.workspace-submit-form .preview-form-grid select:focus,.workspace-submit-form .preview-form-grid textarea:focus{border-color:#4495d2;box-shadow:0 0 0 3px #3288cb19}
+.workspace-submit-form .preview-form-grid input::placeholder,.workspace-submit-form .preview-form-grid textarea::placeholder{color:#9aaabc}
+.workspace-submit-form .preview-form-grid label{gap:6px;color:#45627f;font-size:9px}
+.workspace-submit-form .form-span-two{grid-column:1/-1}
+.workspace-optional{margin-left:5px;color:#92a1b1;font-weight:400}
+.workspace-submit-button{height:41px;margin:0 0 2px;padding:0 15px;justify-self:start;border-radius:8px;background:linear-gradient(105deg,#1975db,#0862c5);font-size:10px;box-shadow:0 4px 11px #0c62b526}
+.workspace-submit-button:disabled{opacity:.6;cursor:wait}
+.workspace-success{display:flex;align-items:flex-start;gap:9px;margin:0 0 12px;padding:11px;border:1px solid #cdebdc;border-radius:8px;background:#f0fbf5;color:#18734f;font-size:9px;line-height:1.5}
+.workspace-success>svg{flex:none}
+.workspace-success a{display:inline-flex;align-items:center;gap:4px;margin-top:5px;color:#116dba;font-weight:700}
+.workspace-new-link{height:34px;display:flex;align-items:center;gap:5px;padding:0 10px;border-radius:7px;background:#eaf5ff;color:#176eb2;font-size:9px;font-weight:700;white-space:nowrap}
+.workspace-ref{color:#176cb2;font-size:9px}
+.workspace-table td{height:43px;padding:8px 12px;border-bottom:1px solid #edf2f7;color:#5d748d;font-size:9px;white-space:nowrap}
+.workspace-table tr:last-child td{border-bottom:0}
+.workspace-status{display:inline-flex;padding:5px 8px;border-radius:14px;background:#fff5e6;color:#a56c17;font-size:8px;font-weight:700}
+.workspace-status.approved{background:#e8f8ef;color:#188253}
+.workspace-status.rejected{background:#fff0ef;color:#b34949}
+.workspace-status.in_review{background:#eaf4ff;color:#236eb1}
+.workspace-count{display:grid;place-items:center;min-width:26px;height:26px;padding:0 7px;border-radius:15px;background:#eef6ff;color:#3378b2;font-size:9px;font-weight:700}
+.inspection-no-application{display:grid;grid-template-columns:27px 1fr;gap:10px;align-items:start;padding:14px;border:1px dashed #d9e6f1;border-radius:8px;background:#f8fbfe;color:#4380ad}
+.inspection-no-application>div b,.inspection-no-application>div small{display:block}
+.inspection-no-application>div b{color:#3b5c78;font-size:9px}
+.inspection-no-application>div small{margin-top:4px;color:#7d91a6;font-size:8px;line-height:1.5}
+.inspection-no-application>a{grid-column:2;display:flex;align-items:center;gap:4px;color:#176eb2;font-size:8px;font-weight:700}
+.inspection-request-list{display:grid}
+.inspection-request-row{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px 0;border-top:1px solid #edf2f7}
+.inspection-date{width:36px;height:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #dce9f5;border-radius:7px;background:#f8fbfe;color:#285c8a}
+.inspection-date b{font:800 13px Manrope,sans-serif}
+.inspection-date small{font-size:7px;text-transform:uppercase}
+.inspection-request-row>span:nth-child(2){min-width:0}
+.inspection-request-row>span:nth-child(2) b,.inspection-request-row>span:nth-child(2) small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.inspection-request-row>span:nth-child(2) b{color:#375775;font-size:8px}
+.inspection-request-row>span:nth-child(2) small{margin-top:4px;color:#8294a7;font-size:7px}
+.inspection-request-row em{padding:5px 7px;border-radius:12px;background:#fff6e7;color:#a16a17;font-size:7px;font-style:normal}
+@media(max-width:760px){.dashboard-action-card{min-height:138px}.workspace-submit-form .preview-form-grid{grid-template-columns:1fr}.workspace-submit-form .preview-form-grid .form-span-two{grid-column:auto}.workspace-submit-button{justify-self:stretch;justify-content:center}.workspace-new-link{font-size:8px}}
+@media(max-width:440px){.dashboard-action-card>*:not(.dashboard-action-art){max-width:64%}.dashboard-action-art{width:58%;opacity:.78}.dashboard-action-card:after{width:64%}.dashboard-action-card>small{font-size:7px}.workspace-table td{font-size:8px}.workspace-kpi-row small{font-size:8px}}
