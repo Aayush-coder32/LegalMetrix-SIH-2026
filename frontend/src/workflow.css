@@ -249,3 +249,67 @@
 .certificate-trust-strip>a{display:inline-flex;align-items:center;gap:4px;flex:none;color:#176eb2;font-size:7px;font-weight:800;white-space:nowrap}
 @media(max-width:1000px){.certificate-hero{grid-template-columns:minmax(0,1fr) minmax(220px,.7fr)}.certificate-overview-grid{grid-template-columns:1fr}.certificate-journey-card{display:grid;grid-template-columns:1fr 1.2fr;column-gap:15px}.certificate-journey-heading{grid-column:1}.certificate-journey-steps{grid-column:1;grid-row:2}.certificate-journey-note{grid-column:2;grid-row:1/3;align-self:center}}
 @media(max-width:600px){.certificate-hero{grid-template-columns:1fr}.certificate-hero-copy{padding:19px}.certificate-hero h2{font-size:20px}.certificate-hero-art{min-height:125px}.certificate-hero-art img{object-position:center 55%}.certificate-hero-art:before{background:linear-gradient(180deg,#f0f9fc 0%,#f0f9fc00 40%,#eaf7f4 100%)}.certificate-records-card,.certificate-journey-card{padding:12px}.certificate-records-card .workspace-toolbar{flex-direction:column}.certificate-coming-badge{align-self:flex-start}.certificate-journey-card{display:block}.certificate-journey-note{margin-top:8px}.certificate-trust-strip{align-items:flex-start;flex-wrap:wrap}.certificate-trust-strip>span{width:calc(100% - 32px)}.certificate-trust-strip>a{margin-left:28px}}
+
+/* Larger, darker type across the authenticated dashboard and its workspace pages. */
+.workspace-redesign .workspace-content{color:#172b3d;font-size:13px}
+.workspace-redesign .workspace-breadcrumb{color:#43586d;font-size:11px;font-weight:600}
+.workspace-redesign .workspace-page-heading .section-kicker{color:#145c99;font-size:10px;font-weight:800}
+.workspace-redesign .workspace-page-heading h1{color:#0c2035;font-size:29px;font-weight:800}
+.workspace-redesign .workspace-page-heading p{color:#344a60;font-size:13px;font-weight:600}
+.workspace-redesign .workspace-stage{color:#324c63;font-size:10px;font-weight:700}
+.workspace-redesign .workspace-toolbar h2,.workspace-redesign .workspace-card-heading h2,.workspace-redesign .guidance-card h2,.workspace-redesign .inspection-side h2{color:#10253a;font-size:15px;font-weight:800}
+.workspace-redesign .workspace-toolbar p,.workspace-redesign .workspace-card-heading p{color:#43586c;font-size:11px;font-weight:600}
+.workspace-redesign .preview-form-grid label,.workspace-redesign .workspace-submit-form .preview-form-grid label{color:#263c51;font-size:11px;font-weight:800}
+.workspace-redesign .workspace-submit-form .preview-form-grid input,.workspace-redesign .workspace-submit-form .preview-form-grid select,.workspace-redesign .workspace-submit-form .preview-form-grid textarea{color:#172c40;font-size:12px;font-weight:600}
+.workspace-redesign .workspace-submit-form .preview-form-grid input::placeholder,.workspace-redesign .workspace-submit-form .preview-form-grid textarea::placeholder{color:#66788a;font-weight:500}
+.workspace-redesign .workspace-form-section-title b{color:#1b334a;font-size:12px;font-weight:800}
+.workspace-redesign .workspace-form-section-title small{color:#4f6275;font-size:9px;font-weight:600}
+.workspace-redesign .workspace-form-note{color:#55421f;font-size:10px;font-weight:600}
+.workspace-redesign .workspace-table th{color:#344b61;font-size:10px;font-weight:800}
+.workspace-redesign .workspace-table td{color:#233a50;font-size:11px;font-weight:600}
+.workspace-redesign .workspace-empty h3{color:#1c354d;font-size:14px;font-weight:800}
+.workspace-redesign .workspace-empty p{color:#455b70;font-size:11px;font-weight:600}
+.workspace-redesign .workspace-status{font-size:9px;font-weight:800}
+.workspace-redesign .workspace-new-link,.workspace-redesign .workspace-inline-link{font-size:10px;font-weight:800}
+.workspace-redesign .profile-identity-main h2{color:#10253a;font-size:20px}
+.workspace-redesign .profile-identity-main>p,.workspace-redesign .profile-facts small{color:#4b6074;font-size:10px;font-weight:600}
+.workspace-redesign .profile-facts b{color:#233a50;font-size:11px;font-weight:700}
+.workspace-redesign .profile-account-id span{font-size:8px}
+.workspace-redesign .profile-account-id b{color:#263f56;font-size:10px}
+.workspace-redesign .profile-edit-heading h2,.workspace-redesign .profile-security-card>div>b{color:#142b40;font-size:15px;font-weight:800}
+.workspace-redesign .profile-edit-heading p,.workspace-redesign .profile-security-card p{color:#465c71;font-size:10px;font-weight:600}
+.workspace-redesign .profile-edit-form>label{color:#263d52;font-size:11px;font-weight:800}
+.workspace-redesign .profile-field input{color:#142a3e;font-size:12px;font-weight:600}
+.workspace-redesign .profile-field-hint,.workspace-redesign .profile-field-lock{font-size:9px;font-weight:700}
+.workspace-redesign .profile-save-note{color:#354d63;font-size:9px;font-weight:600}
+.workspace-redesign .profile-security-card a{font-size:9px;font-weight:800}
+.workspace-redesign .certificate-hero h2{color:#10253f;font-size:25px}
+.workspace-redesign .certificate-hero-copy>p{color:#344e67;font-size:11px;font-weight:600}
+.workspace-redesign .certificate-primary-link,.workspace-redesign .certificate-secondary-link{font-size:9px;font-weight:800}
+.workspace-redesign .certificate-records-card .workspace-toolbar h2,.workspace-redesign .certificate-journey-heading h2{color:#132a40;font-size:15px;font-weight:800}
+.workspace-redesign .certificate-records-card .workspace-toolbar p,.workspace-redesign .certificate-journey-heading p{color:#465c71;font-size:10px;font-weight:600}
+.workspace-redesign .certificate-empty-state h3{color:#1b344c;font-size:14px}
+.workspace-redesign .certificate-empty-state p{color:#455b70;font-size:10px;font-weight:600}
+.workspace-redesign .certificate-journey-steps b{color:#2d455b;font-size:10px;font-weight:800}
+.workspace-redesign .certificate-journey-steps small{color:#53677a;font-size:9px;font-weight:600}
+.workspace-redesign .certificate-trust-strip b{color:#243e54;font-size:10px;font-weight:800}
+.workspace-redesign .certificate-trust-strip small{color:#465e72;font-size:9px;font-weight:600}
+.workspace-redesign .inspection-intro>div:nth-child(2)>b{color:#193650;font-size:13px;font-weight:800}
+.workspace-redesign .inspection-intro p{color:#3e566d;font-size:10px;font-weight:600}
+.workspace-redesign .inspection-flow{color:#334e67;font-size:9px;font-weight:700}
+.workspace-redesign .inspection-upload-copy b{color:#1e3b55;font-size:11px;font-weight:800}
+.workspace-redesign .inspection-upload-copy small{color:#53697e;font-size:9px;font-weight:600}
+.workspace-redesign .inspection-verification-note b{color:#205c43;font-size:10px;font-weight:800}
+.workspace-redesign .inspection-verification-note small{color:#3d6957;font-size:9px;font-weight:600}
+.workspace-redesign .inspection-review-steps b,.workspace-redesign .inspection-no-application>div b{color:#263f56;font-size:10px;font-weight:800}
+.workspace-redesign .inspection-review-steps small,.workspace-redesign .inspection-no-application>div small{color:#4d6378;font-size:9px;font-weight:600}
+.dashboard-redesign .dashboard-section-heading h2{color:#10253a;font-size:16px;font-weight:800}
+.dashboard-redesign .dashboard-section-heading p{color:#41576c;font-size:10px;font-weight:600}
+.dashboard-redesign .dashboard-action-card>b{color:#142a40;font-size:13px;font-weight:800}
+.dashboard-redesign .dashboard-action-card>small{color:#3f566e;font-size:9px;font-weight:600}
+.dashboard-redesign .dashboard-action-link{color:#294965;font-size:9px;font-weight:700}
+.dashboard-redesign .dashboard-account-grid small{color:#4e6276;font-size:9px;font-weight:700}
+.dashboard-redesign .dashboard-account-grid b{color:#1e364d;font-size:11px;font-weight:800}
+.dashboard-redesign .dashboard-status-card b{font-size:12px;font-weight:800}
+.dashboard-redesign .dashboard-status-card p{color:#354f66;font-size:10px;font-weight:600}
+@media(max-width:600px){.workspace-redesign .workspace-page-heading h1{font-size:24px}.workspace-redesign .workspace-page-heading p{font-size:12px}.workspace-redesign .workspace-toolbar h2,.workspace-redesign .workspace-card-heading h2{font-size:14px}.workspace-redesign .profile-edit-card{padding:14px}.workspace-redesign .certificate-hero h2{font-size:21px}}
