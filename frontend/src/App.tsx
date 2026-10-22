@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ReactNode } from 'react'
 import { z } from 'zod'
 import toast from 'react-hot-toast'
 import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
-import { Activity, ArrowRight, Bell, Building2, ChevronDown, CircleHelp, ClipboardCheck, FileCheck2, Gauge, Menu, Search, ShieldCheck, Scale, X, Mail, LockKeyhole, UserRound, BadgeCheck, QrCode, Clock3 } from 'lucide-react'
+import { Activity, ArrowRight, Bell, Building2, ChevronDown, CircleHelp, ClipboardCheck, FileCheck2, Gauge, Menu, Search, ShieldCheck, Scale, X, Mail, LockKeyhole, UserRound, BadgeCheck, QrCode, Clock3, Home, CalendarDays, Plus, CircleCheck, Settings, LogOut, MapPin } from 'lucide-react'
 import { useAuth } from './auth'
 import LandingPage from './LandingPage'
 
