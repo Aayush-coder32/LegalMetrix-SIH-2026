@@ -45,12 +45,11 @@ function Dashboard() {
  const {user,logout}=useAuth(); const [menu,setMenu]=useState(false)
  if(!user) return <Navigate to="/login" replace/>
  const title=roleNames[user.roles[0]] ?? 'Portal User'
- const firstName=user.fullName.trim().split(/\s+/)[0]
  const actionCards=[
-  {icon:<Plus/>,title:'Register Instrument',text:'Add an instrument for verification',tone:'green',to:'/instruments/new',position:'18% center'},
-  {icon:<CalendarDays/>,title:'Book Inspection',text:'Explore inspection booking',tone:'blue',to:'/inspections/book',position:'43% center'},
-  {icon:<FileCheck2/>,title:'View Certificates',text:'Browse certificate records',tone:'violet',to:'/certificates',position:'68% center'},
-  {icon:<Activity/>,title:'Track Application',text:'Review application workspace',tone:'orange',to:'/applications',position:'93% center'},
+  {icon:<Plus/>,title:'Register Instrument',text:'Add an instrument for verification',tone:'green',to:'/instruments/new',image:'/images/instrument-card.jpg'},
+  {icon:<CalendarDays/>,title:'Book Inspection',text:'Explore inspection booking',tone:'blue',to:'/inspections/book',image:'/images/inspection-card.jpg'},
+  {icon:<FileCheck2/>,title:'View Certificates',text:'Browse certificate records',tone:'violet',to:'/certificates',image:'/images/certificate-card.jpg'},
+  {icon:<Activity/>,title:'Track Application',text:'Review application workspace',tone:'orange',to:'/applications',image:'/images/application-card.jpg'},
  ]
  return <div className="app-shell dashboard-redesign">
   <aside className={`sidebar ${menu?'sidebar-open':''}`}>
@@ -69,11 +68,11 @@ function Dashboard() {
   <div className="dashboard-main">
    <header className="dash-top"><button className="menu-button dash-menu" onClick={()=>setMenu(!menu)} aria-label="Toggle menu">{menu?<X/>:<Menu/>}</button><Link className="dashboard-header-brand" to="/"><span className="dashboard-header-mark"><Scale size={21}/></span><span><b>Legal Metrology Portal</b><small>Verify <i/> Protect <i/> Build Trust</small></span></Link><div className="dash-tools"><button aria-label="Notifications" className="icon-button"><Bell size={19}/></button><div className="profile-menu"><button className="profile-button" onClick={()=>setMenu(!menu)}><span className="avatar">{user.fullName.slice(0,1).toUpperCase()}</span><span className="profile-meta"><b>{user.fullName}</b><small>{title}</small></span><ChevronDown size={15}/></button>{menu&&<div className="profile-pop"><b>{user.email}</b><Link to="/settings/profile">Manage profile</Link><button onClick={()=>{logout();location.href='/'}}><LogOut size={14}/> Sign out</button></div>}</div></div></header>
    <main className="dashboard-content">
-    <section className="dashboard-welcome"><div><span className="section-kicker">YOUR WORKSPACE</span><h1>Welcome back, {firstName}!</h1><p>Manage your account and explore the LegalMetrix verification portal.</p><div className="dashboard-welcome-meta"><span><CircleCheck size={15}/> Account active</span><i/><span><ShieldCheck size={15}/> {title}</span></div></div><div className="dashboard-welcome-art"><Scale size={85}/><span><ShieldCheck size={22}/> Secure portal access</span></div></section>
+    <section className="dashboard-welcome"><div><span className="section-kicker">YOUR WORKSPACE</span><h1>Welcome back, {user.fullName}!</h1><p>Manage your account and explore the LegalMetrix verification portal.</p><div className="dashboard-welcome-meta"><span><CircleCheck size={15}/> Account active</span><i/><span><ShieldCheck size={15}/> {title}</span></div></div><div className="dashboard-welcome-art"><Scale size={85}/><span><ShieldCheck size={22}/> Secure portal access</span></div></section>
     <div className="prototype-banner"><div className="banner-icon"><Activity size={19}/></div><div><b>Your workspace is ready</b><p>Register instruments and submit inspection requests here. Final verification decisions and certificate issuance remain with authorized officers.</p></div></div>
     <div className="dashboard-columns"><section className="dashboard-primary">
      <div className="dashboard-section-heading"><div><h2>Quick Actions</h2><p>Start a task in your workspace</p></div></div>
-     <div className="dashboard-action-grid">{actionCards.map(card=><Link className={`dashboard-action-card ${card.tone}`} key={card.title} to={card.to}><img className="dashboard-action-art" src="/images/metrology-hero.png" alt="" style={{objectPosition:card.position}}/><span className="dashboard-action-icon">{card.icon}</span><b>{card.title}</b><small>{card.text}</small><span className="dashboard-action-link">Open workspace <ArrowRight size={15}/></span></Link>)}</div>
+     <div className="dashboard-action-grid">{actionCards.map(card=><Link className={`dashboard-action-card ${card.tone}`} key={card.title} to={card.to}><img className="dashboard-action-art" src={card.image} alt=""/><span className="dashboard-action-icon">{card.icon}</span><b>{card.title}</b><small>{card.text}</small><span className="dashboard-action-link">Open workspace <ArrowRight size={15}/></span></Link>)}</div>
      <section className="dashboard-panel account-overview"><div className="dashboard-section-heading"><div><h2>Account Overview</h2><p>Your current account details</p></div><Link to="/settings/profile">Manage profile <ArrowRight size={14}/></Link></div><div className="dashboard-account-grid"><div><small>Full name</small><b>{user.fullName}</b></div><div><small>Email address</small><b>{user.email}</b></div><div><small>Access role</small><b>{title}</b></div><div><small>Account status</small><span className="dashboard-active-status"><i/> Active</span></div></div></section>
     </section><aside className="dashboard-rail">
      <div className="dashboard-panel dashboard-status-card ready"><span className="dashboard-status-icon"><CircleCheck/></span><div><b>Your account is ready</b><p>Profile access is active. You can update your account information at any time.</p></div><Link to="/settings/profile" aria-label="Manage account profile"><ArrowRight size={17}/></Link></div>
