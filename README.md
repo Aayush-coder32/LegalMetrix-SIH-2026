@@ -17,6 +17,7 @@ Prototype for Smart India Hackathon 2026 · React · TypeScript · Spring Boot �
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)
 ![Prototype](https://img.shields.io/badge/status-prototype-orange)
 
 </div>
@@ -279,9 +280,9 @@ Contributors should submit only material they created or are authorized to contr
 
 ## License and usage rights
 
-**No open-source license has been declared for this repository.** Until the maintainers add a license file and explicit terms, the source and original content remain protected by applicable copyright law and are not offered for general reuse, redistribution, modification, or commercial use. Viewing the repository or submitting a contribution does not by itself grant those permissions.
+This project is licensed under the **Apache License 2.0**. You may use, reproduce, modify, and distribute the project under the terms and conditions in the [`LICENSE`](LICENSE) file. The license includes conditions for preserving copyright and license notices, documenting changes, and a patent license, along with its stated limitations and disclaimer.
 
-This notice is informational and does not replace legal advice. The maintainers should select and add an appropriate license before inviting broad reuse or distribution. Third-party dependencies and assets remain subject to their own license terms.
+Unless a file or component states otherwise, project source code is provided under Apache-2.0. Third-party dependencies and assets remain subject to their own license terms; consult their notices before redistribution. The license does not grant rights to project or third-party trademarks, logos, or service marks.
 
 ## Acknowledgements
 
