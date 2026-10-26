@@ -1,37 +1,83 @@
-# LegalMetrix — SIH 2026 prototype
+<div align="center">
 
-**Verify. Certify. Comply.** This repository starts a modular monolith for digital legal metrology services. It is an SIH prototype and is not an official government service. Legal rules and approval authority must be configured and validated by the competent authority before operational use.
+# ✨ LegalMetrix
 
-## Phase 1 architecture
+### Verify. Certify. Comply.
+
+**A digital workspace for legal metrology services, instrument registration, verification applications, and inspection workflows.**
+
+Prototype for Smart India Hackathon 2026 · React · TypeScript · Spring Boot · MySQL
+
+[Features](#features-and-scope) · [How it works](#architecture) · [Get started](#local-development) · [API](#api-and-health-checks) · [Security](#security-and-vulnerability-reports) · [Contributing](#contributing) · [License](#license-and-usage-rights)
+
+<br />
+
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-6DB33F?logo=springboot&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
+![Prototype](https://img.shields.io/badge/status-prototype-orange)
+
+</div>
+
+---
+
+> **Prototype notice:** LegalMetrix is not an official government service, does not provide legal advice, and does not issue statutory approvals or certificates. Applicable rules and workflows require validation by the competent authority before operational use.
+
+## Contents
+
+- [Project overview](#project-overview)
+- [Architecture](#architecture)
+- [Features and scope](#features-and-scope)
+- [Technology stack](#technology-stack)
+- [Prerequisites](#prerequisites)
+- [Local development](#local-development)
+- [Configuration](#configuration)
+- [API and health checks](#api-and-health-checks)
+- [Development workflow](#development-workflow)
+- [Contributing](#contributing)
+- [Security and vulnerability reports](#security-and-vulnerability-reports)
+- [Copyright and content claims](#copyright-and-content-claims)
+- [License and usage rights](#license-and-usage-rights)
+- [Acknowledgements](#acknowledgements)
+
+## Project overview
+
+LegalMetrix explores how legal metrology services might support instrument registration, verification applications, inspection scheduling, certificate lifecycle management, public verification, and grievance handling. The present implementation is an early prototype. Planned entities and future workflows shown below should not be read as implemented capabilities.
+
+It is not operated by or endorsed by a government department or legal metrology authority. Applicable laws, rules, forms, fees, roles, and approval boundaries must be confirmed by the competent authority before any real-world deployment. Do not use this prototype to make legal, commercial, or compliance decisions.
+
+## Architecture
 
 ```mermaid
 flowchart LR
-  Browser[React + Vite + TypeScript] -->|JSON API, bearer access token| API[Spring Boot modular monolith]
-  API --> Sec[Spring Security + JWT]
-  API --> Domain[Identity, access, audit modules]
-  Domain --> DB[(MySQL 8 / Flyway)]
-  API -. future phases .-> Files[Private object storage abstraction]
-  API -. future phases .-> Mail[Email provider]
+  Browser[React + Vite + TypeScript] -->|JSON API, bearer token| API[Spring Boot modular monolith]
+  API --> Security[Spring Security + JWT]
+  API --> Modules[Identity · Access · Audit · Workflows]
+  Modules --> DB[(MySQL 8 + Flyway)]
+  API -. planned .-> Storage[Private object storage]
+  API -. planned .-> Messaging[Email / SMS provider]
 ```
 
-The browser uses one authentication flow and routes users according to server-issued roles. The API owns authorization and is the source of truth. Phase 1 implements identity, fixed role records, shared authentication, profile updates, audit events, and the dashboard shell. Refresh-token rotation, email verification, password recovery, persistent lockout/rate limits, and operational workflows are subsequent work. Passwords are stored using BCrypt. Development has a fallback signing secret; production requires `JWT_SECRET` and a production secrets manager.
+The API is the source of truth for identity and authorization. User roles describe intended scopes; system administration does not grant statutory decision-making authority. Public certificate verification and several operational workflows are planned and may not yet be available.
 
-### Role-permission matrix
+### Role and access intent
 
-| Capability | Owner | LMO | GATC | State admin | Central admin | Public | Helpdesk | System admin |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Manage own profile | ✓ | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ |
-| Instruments/applications | Own | Assigned | Centre queue | State scope | Aggregate/config | Public verify | Assigned grievance | — |
-| Statutory inspection/decision | — | Assigned authority | Authorized tests | Allocate/monitor | — | — | — | — |
-| State user/office administration | — | — | — | State scope | — | — | — | — |
-| Cross-state aggregate/config | — | — | — | — | ✓ | — | — | — |
-| Grievances | Own | Assigned | Assigned | State scope | Aggregate | Submit/report | Assigned tickets | — |
-| Security/account administration | — | — | — | Access review | — | — | — | ✓ |
-| Audit visibility | Own events | Own/assigned | Own/centre | State scope | Aggregate | — | Assigned scope | Security events |
+| Role | Intended scope |
+| --- | --- |
+| Owner | Own profile, instruments, applications, and grievances |
+| Legal Metrology Officer (LMO) | Assigned inspection and application work |
+| Government Approved Test Centre (GATC) | Assigned centre testing queue |
+| State administrator | State-scoped user and office administration |
+| Central administrator | Aggregate reporting and configuration |
+| Public | Public-facing services, such as certificate verification when implemented |
+| Helpdesk | Assigned grievance tickets |
+| System administrator | Technical account and security administration |
 
-Roles are not interchangeable: system administration grants no statutory approval authority, and central administration cannot bypass workflow approvals. Public certificate verification remains anonymous. These are intended capability boundaries; workflow endpoints arrive in later phases.
+These are intended boundaries, not a claim that every listed workflow is implemented. The system administrator has no statutory approval authority, and administrative roles must not bypass workflow decisions.
 
-### Core data relationships
+### Data model direction
 
 ```mermaid
 erDiagram
@@ -48,31 +94,63 @@ erDiagram
   USER ||--o{ GRIEVANCE : submits
 ```
 
-Phase 1 persists users, roles, role assignments, and audit events. The remaining entities are planned relationships, not yet implemented. State/district/office scope will be represented explicitly before workflow data is added.
+The implemented schema covers identity, roles, audit, and the instrument/application/inspection flows described in the status section. Other relationships are design direction and are not necessarily persisted yet.
 
-## Project structure
+## Features and scope
 
-```text
-backend/                 Spring Boot API, Maven, Flyway migrations
-  src/main/java/...      config, identity, security, audit, common
-  src/main/resources/    application profiles and migrations
-  src/test/java/...      focused API/security tests
-frontend/                Vite, React, TypeScript, Tailwind
-  src/                    routes, auth, layouts, shared UI
-README.md                 architecture, permissions, relationships, setup
-```
+Current prototype functionality includes shared authentication, fixed role records and role assignments, profile updates, audit events, dashboard shell, account-owned instrument registration, initial verification applications, and inspection requests stored against applications. Inspection requests remain pending review by an authorized officer.
 
-## Stack and dependency choices
+Certificate issuance and statutory verification decisions are not implemented. Refresh-token rotation, email verification, password recovery, persistent account lockout, and production-grade rate limiting are also future work. Browser access tokens are held in memory, so a page reload requires signing in again; clearing the client token does not revoke a JWT already issued, which expires according to its configured lifetime.
 
-Java 21, Spring Boot 3.5.x, Maven, Spring Web, Security, Data JPA, Validation, MySQL Connector/J, Flyway, JJWT, springdoc-openapi, JUnit 5/Mockito. Frontend: React, Vite, TypeScript, Tailwind, React Router, Axios, React Hook Form, Zod, Recharts, Lucide, and React Hot Toast. Versions are pinned in the build manifests; dependency compatibility should be checked when upgrading.
+## Technology stack
 
-## Local setup (PowerShell)
+| Area | Technologies |
+| --- | --- |
+| Backend | Java 21, Spring Boot 3.5, Spring Web, Security, Data JPA, Validation, Actuator |
+| Persistence | MySQL 8, Flyway |
+| Authentication | JWT (JJWT), BCrypt password hashing |
+| API documentation | springdoc-openapi / Swagger UI |
+| Frontend | React 19, TypeScript, Vite, React Router, Tailwind CSS |
+| UI and data | Axios, React Hook Form, Zod, Recharts, Lucide, React Hot Toast |
+| Checks | JUnit 5, Mockito, TypeScript compiler, Vite production build |
 
-Requirements: Java 21+, Maven 3.9+, Node.js 20+, Docker Desktop with Compose. From the repository root:
+Dependency versions are declared in `backend/pom.xml` and `frontend/package.json`.
+
+## Prerequisites
+
+- Java 21 or newer
+- Maven 3.9 or newer
+- Node.js 20 or newer and npm
+- Docker Desktop with Docker Compose
+- Git
+
+## Local development
+
+### 1. Configure environment
+
+At the repository root, create a local environment file using safe example values:
 
 ```powershell
 Copy-Item .env.example .env
+```
+
+If `.env.example` is not present in your checkout, create `.env` from the variable list in [Configuration](#configuration). Never commit `.env` or paste its values into issues, pull requests, logs, or screenshots.
+
+### 2. Start MySQL
+
+From the repository root:
+
+```powershell
 docker compose up -d mysql
+```
+
+Compose publishes MySQL on port `3306` by default. Adjust the port mapping if that port is already in use and keep `DB_PORT` in sync.
+
+### 3. Start the API
+
+In a PowerShell terminal from the repository root:
+
+```powershell
 Set-Location backend
 Get-Content ..\.env | ForEach-Object {
   if ($_ -match '^\s*([^#=]+)=(.*)$') {
@@ -83,6 +161,10 @@ $env:SPRING_PROFILES_ACTIVE = 'dev'
 mvn spring-boot:run
 ```
 
+Spring Boot does not load `.env` automatically. The PowerShell snippet loads variables into that process without printing values. To provision a local system administrator, set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before the first API startup. Do not use a real or reused password.
+
+### 4. Start the web client
+
 In a second terminal:
 
 ```powershell
@@ -91,18 +173,116 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173`. Swagger UI is at `http://localhost:8080/swagger-ui.html`. The PowerShell block above loads `.env` values into the backend process without printing them. Never use the development JWT secret in a deployed environment. Set `BOOTSTRAP_ADMIN_EMAIL` and `BOOTSTRAP_ADMIN_PASSWORD` before first startup to create a local system administrator; there are no committed demo credentials.
+Open `http://localhost:5173`. The API normally listens at `http://localhost:8080`.
 
-Run backend checks from `backend` with `mvn test`. Run the frontend production check from `frontend` with `npm run build`. Docker Compose reads `.env`; Spring Boot does not load `.env` automatically. In production, activate the `prod` profile and set all required secrets and service URLs in the deployment environment.
+### 5. Stop local services
 
-## Phase 1 scope and status
+Stop the API and Vite with `Ctrl+C`, then stop the database container:
 
-This initial increment provides the architecture baseline, schema, shared authentication, role-aware shell, and account/profile basics. Access tokens stay in browser memory; reloading requires signing in again until refresh-token rotation is implemented. Client logout clears the browser token, which remains valid at the server only until its short expiry. It is intentionally the first phase of the larger system; later phases add instrument registry, applications, inspections, certificates, grievances, reporting, and hardened deployment integrations. Do not put personal or production data into this prototype.
+```powershell
+docker compose down
+```
 
-## Workflow data currently available
+The named MySQL volume is retained. Removing volumes deletes local database state; back up anything you need before doing so.
 
-Instrument registration creates an account-owned instrument record and an initial verification application. Inspection requests are stored against an application and remain `REQUESTED` until an authorized officer reviews them. Application and inspection lists are scoped to the signed-in account. Certificate issuance and verification decisions are not implemented; this prototype does not issue statutory approvals or certificates.
+## Configuration
 
-## Security and operations
+Set configuration through environment variables. The checked-in Compose file provides local defaults for the database, but production secrets must come from a secret manager or deployment environment.
 
-Use TLS, a production-grade secret manager, restricted CORS, private object storage, backups with restore drills, monitoring, dependency scanning, and configured rate limiting before deployment. LegalMetrix does not claim formal authorization or compliance certification. External email/SMS, malware scanning, object storage, and payment services require separately configured providers.
+| Variable | Purpose |
+| --- | --- |
+| `MYSQL_DATABASE` | Database initialized by Compose |
+| `MYSQL_USER` | Local database user |
+| `MYSQL_PASSWORD` | Local database password |
+| `MYSQL_ROOT_PASSWORD` | Local MySQL root password |
+| `DB_HOST` | Database hostname used by the API |
+| `DB_PORT` | Database port (Compose default: `3306`) |
+| `DB_NAME` | API database name |
+| `DB_USERNAME` | API database user |
+| `DB_PASSWORD` | API database password |
+| `JWT_SECRET` | JWT signing key; use a strong unique secret outside local development |
+| `JWT_TTL_MINUTES` | Access-token lifetime in minutes |
+| `FRONTEND_ORIGIN` | Allowed frontend origin for CORS |
+| `BOOTSTRAP_ADMIN_EMAIL` | Optional local first-run administrator email |
+| `BOOTSTRAP_ADMIN_PASSWORD` | Optional local first-run administrator password |
+
+Never deploy with prototype or example credentials, the development JWT secret, broad CORS settings, or publicly exposed database ports. Rotate any secret that has been committed or shared accidentally.
+
+## API and health checks
+
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- OpenAPI document: `http://localhost:8080/v3/api-docs`
+- Spring Boot Actuator health endpoint: `http://localhost:8080/actuator/health` (subject to the active profile)
+
+## Development workflow
+
+Run the backend checks from `backend`:
+
+```powershell
+mvn test
+```
+
+Build and type-check the frontend from `frontend`:
+
+```powershell
+npm run build
+```
+
+Before opening a pull request, review the diff, avoid committing generated output or secrets, and describe any migration or configuration changes. Keep Flyway migrations additive and ordered; do not rewrite a migration that may already have been applied by another developer.
+
+## Contributing
+
+Contributions are welcome through focused issues and pull requests. For a substantial feature or a change to authorization, data handling, or legal workflow, open an issue first so scope and intended behavior can be discussed.
+
+### Suggested contribution process
+
+1. Search existing issues and pull requests to avoid duplicate work.
+2. Open an issue describing the problem, expected behavior, affected area, and any relevant screenshots or reproduction steps. Do not include personal, regulated, or secret data.
+3. Fork the repository or create a topic branch from the project’s default branch.
+4. Keep each change focused. Preserve authorization checks, audit behavior, and migration compatibility.
+5. Add or update appropriate tests and documentation for behavior changes.
+6. Run `mvn test` for backend changes and `npm run build` for frontend changes.
+7. Open a pull request with a concise summary, rationale, verification performed, and any migration or security impact.
+8. Respond to review feedback and keep the branch up to date with the default branch.
+
+### Pull request checklist
+
+- [ ] The change has a clear user or maintenance benefit.
+- [ ] Authorization is enforced by the API, not only by the client.
+- [ ] Inputs are validated and sensitive data is not logged.
+- [ ] Database changes use a new Flyway migration where needed.
+- [ ] Tests and documentation reflect changed behavior.
+- [ ] No credentials, personal data, generated files, or unrelated formatting changes are included.
+- [ ] Any third-party assets or code have compatible terms and attribution.
+
+Use respectful, constructive language in issues and reviews. Until a project Code of Conduct is adopted, participants are expected to communicate professionally and focus on the work.
+
+## Security and vulnerability reports
+
+Please do not publish exploitable vulnerability details, credentials, tokens, or personal data in a public issue. The repository does not currently publish a dedicated private security contact. Until one is configured, contact the repository maintainers privately through the hosting platform’s available contact channel and share only the minimum detail needed to reproduce the issue. Allow maintainers reasonable time to investigate and coordinate a fix before public disclosure.
+
+Do not submit real user data or production secrets with bug reports. Rotate any credential that may have been exposed.
+
+## Copyright and content claims
+
+If you believe material in this repository infringes your copyright or other rights, contact the repository maintainers privately through the hosting platform. Include:
+
+- Identification of the copyrighted work or other right claimed.
+- The exact repository path, commit, or URL of the material in question.
+- Your contact details and a good-faith explanation of your authority to make the claim.
+- The action you request, such as removal, attribution, or replacement.
+- Any relevant evidence or source reference.
+
+Please do not post private contact details or confidential supporting material in a public issue. Maintainers will review a sufficiently detailed claim and may temporarily restrict access to disputed material while investigating. This process is for routing claims and is not legal advice or a substitute for any formal notice required by applicable law.
+
+Contributors should submit only material they created or are authorized to contribute, and should identify third-party assets with their source and license. A pull request does not transfer ownership of a contributor’s work; usage rights are governed by the applicable license and any contribution terms presented by the repository host.
+
+## License and usage rights
+
+**No open-source license has been declared for this repository.** Until the maintainers add a license file and explicit terms, the source and original content remain protected by applicable copyright law and are not offered for general reuse, redistribution, modification, or commercial use. Viewing the repository or submitting a contribution does not by itself grant those permissions.
+
+This notice is informational and does not replace legal advice. The maintainers should select and add an appropriate license before inviting broad reuse or distribution. Third-party dependencies and assets remain subject to their own license terms.
+
+## Acknowledgements
+
+LegalMetrix is a prototype developed in the context of Smart India Hackathon 2026. The project uses open-source libraries and tools listed in its build manifests; those projects retain their respective names, copyrights, and license terms.
